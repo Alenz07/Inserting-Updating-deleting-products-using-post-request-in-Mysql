@@ -1,0 +1,15 @@
+db  = require("../utils/dbconnect")
+const getting = (req,res)=>{
+    res.send("Fetch All Users")
+}
+const adding = (req,res)=>{
+  
+} 
+
+const fetching = (req,res)=>{
+    id = req.params.id
+    res.send(`Fetch a user by their ID ${id}`)
+}
+
+
+module.exports = {adding,fetching,getting}
