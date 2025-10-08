@@ -1,0 +1,48 @@
+const db = require("../utils/dbconnect")
+
+
+const fetching = (req,res)=>{
+    res.send("Fetch All Products")
+}
+const adding = (req,res)=>{ 
+    const{name,price,product_id}= req.body
+const query1  = `insert into products(name,price,product_id) values(?,?,?)`
+db.query(query1,[name,price,product_id ],(err,result)=>{
+    if(err){
+        console.log(err)
+        res.send("err happend")
+    }
+    console.log("data is added")
+    res.send("worked")
+
+})
+}
+const update = (req,res)=>{
+    const{name,updated_price} = req.body
+    const update = `update products set price = ? where name = ? `
+    db.query(update,[updated_price,name],(err,result)=>{
+        if(err){console.log(err)}
+        res.send(`product with ${name} updated`)
+    }
+)
+
+}
+const deleted = (req,res)=>{
+    const{name} = req.body
+    const update = `delete from products  where name = ? `
+    db.query(update,[name],(err,result)=>{
+        if(err){console.log(err)}
+        res.send(`product with ${name} deleted`)
+    }
+)
+}
+const getting = (req,res)=>{
+    id = parseInt(req.params.id)
+    if(id<0){
+        return res.status(404).send("this is invalid id")
+            }
+    res.send(`Fetch a product by their ID ${id}`)
+}
+module.exports = {fetching,adding,getting,update,deleted}
+
+  
